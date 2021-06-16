@@ -6,8 +6,8 @@
       <p>
         You have <b>{{ count }}</b> todo items.
       </p>
-      <button @click="$store.commit('checkAllTodos', true)">Check all</button>
-      <button @click="$store.commit('checkAllTodos', false)">Uncheck all</button>
+      <button @click="$store.dispatch('checkAllTodos', true)">Check all</button>
+      <button @click="$store.dispatch('checkAllTodos', false)">Uncheck all</button>
     </div>
 
     <div
@@ -20,7 +20,7 @@
         <span>{{ todo.text }}</span>
       </div>
 
-      <button @click="$store.commit('deleteTodo', todo.id)">X</button>
+      <button @click="$store.dispatch('deleteTodo', todo.id)">X</button>
     </div>
   </div>
 </template>

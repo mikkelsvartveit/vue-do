@@ -5,7 +5,6 @@ Vue.use(Vuex);
 Vue.config.devtools = true;
 
 type todoType = { id: number; text: string; finished: boolean };
-type stateType = { todos: todoType[] };
 
 export default new Vuex.Store({
   strict: true,
@@ -30,8 +29,22 @@ export default new Vuex.Store({
       state.todos = state.todos.filter((todo: todoType) => id !== todo.id);
     },
 
-    checkAllTodos: (state: stateType, check: boolean) => {
+    checkAllTodos: (state, check: boolean) => {
       state.todos = state.todos.map((todo) => ({ ...todo, finished: check }));
+    },
+  },
+
+  actions: {
+    addTodo: (context, text: string) => {
+      context.commit('addTodo', text);
+    },
+
+    deleteTodo: (context, id: number) => {
+      context.commit('deleteTodo', id);
+    },
+
+    checkAllTodos: (context, check: boolean) => {
+      context.commit('checkAllTodos', check);
     },
   },
 });

@@ -20,7 +20,7 @@ export default class Todos extends Vue {
   }
 
   addTodo(): void {
-    this.$store.commit('addTodo', this.newTodoText);
+    this.$store.dispatch('addTodo', this.newTodoText);
     this.newTodoText = '';
   }
 }
