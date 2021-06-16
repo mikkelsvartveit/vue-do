@@ -2,42 +2,21 @@
   <div id="app">
     <h1>Vue-Do</h1>
 
-    <div id="content">
-      <div id="add-todo">
-        <h2>Add Todo</h2>
-        <div>
-          <input v-on:keyup.enter="addTodo" type="text" v-model="newTodoText" />
-          <button v-on:click="addTodo">Add</button>
-        </div>
-      </div>
+    <AddTodo v-bind:todos="todos" />
 
-      <div class="todos">
-        <h2>Your Todos</h2>
-
-        <div
-          v-bind:class="{ todoItem: true, checked: todo.finished }"
-          v-for="todo in todos"
-          v-bind:key="todo.id"
-        >
-          <div>
-            <input type="checkbox" v-model="todo.finished" />
-            <span>{{ todo.text }}</span>
-          </div>
-
-          <button @click="deleteTodo(todo.id)">X</button>
-        </div>
-      </div>
-    </div>
+    <Todos v-bind:todos="todos" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Todos from './components/Todos.vue';
+import AddTodo from './components/AddTodo.vue';
 
 @Component({
   components: {
     Todos,
+    AddTodo,
   },
 })
 export default class App extends Vue {
@@ -47,10 +26,6 @@ export default class App extends Vue {
     { id: 1, text: 'First item', finished: false },
     { id: 2, text: 'Second item', finished: true },
   ];
-
-  deleteTodo(id: number): void {
-    this.todos = this.todos.filter((todo) => todo.id !== id);
-  }
 
   addTodo(): void {
     this.todos.push({ id: this.todos.length + 1, text: this.newTodoText, finished: false });
@@ -83,17 +58,17 @@ h2 {
   margin-top: 60px;
 }
 
-#content {
+#app {
   max-width: 400px;
   margin: 0 auto;
 }
 
-#add-todo div {
+.add-todo div {
   display: flex;
   justify-content: stretch;
 }
 
-#add-todo div input {
+.add-todo div input {
   flex-grow: 1;
 }
 
