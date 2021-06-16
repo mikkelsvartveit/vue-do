@@ -2,9 +2,9 @@
   <div id="app">
     <h1>Vue-Do</h1>
 
-    <AddTodo v-bind:todos="todos" />
+    <AddTodo v-bind:todos="todos" @addTodo="addTodo($event)" />
 
-    <Todos v-bind:todos="todos" />
+    <Todos v-bind:todos="todos" @deleteTodo="deleteTodo($event)" />
   </div>
 </template>
 
@@ -20,16 +20,19 @@ import AddTodo from './components/AddTodo.vue';
   },
 })
 export default class App extends Vue {
-  newTodoText = '';
-
   todos: { id: number; text: string; finished: boolean }[] = [
     { id: 1, text: 'First item', finished: false },
     { id: 2, text: 'Second item', finished: true },
   ];
 
-  addTodo(): void {
-    this.todos.push({ id: this.todos.length + 1, text: this.newTodoText, finished: false });
-    this.newTodoText = '';
+  deleteTodo(todo: { id: number; text: string; finished: boolean }): void {
+    this.todos = this.todos.filter((t) => t !== todo);
+  }
+
+  addTodo(text: string): void {
+    console.log('yes');
+
+    this.todos.push({ id: this.todos.length + 1, text, finished: false });
   }
 }
 </script>

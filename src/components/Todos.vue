@@ -12,7 +12,7 @@
         <span>{{ todo.text }}</span>
       </div>
 
-      <button @click="deleteTodo(todo.id)">X</button>
+      <button @click="$emit('deleteTodo', todo)">X</button>
     </div>
   </div>
 </template>
@@ -24,10 +24,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class Todos extends Vue {
   @Prop()
   private todos!: { id: number; text: string; finished: boolean }[];
-
-  deleteTodo(id: number): void {
-    this.todos = this.todos.filter((todo) => todo.id !== id);
-  }
 }
 </script>
 

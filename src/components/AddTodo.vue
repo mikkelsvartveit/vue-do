@@ -19,7 +19,7 @@ export default class Todos extends Vue {
   private todos!: { id: number; text: string; finished: boolean }[];
 
   addTodo(): void {
-    this.todos.push({ id: this.todos.length + 1, text: this.newTodoText, finished: false });
+    this.$emit('addTodo', this.newTodoText);
     this.newTodoText = '';
   }
 }
