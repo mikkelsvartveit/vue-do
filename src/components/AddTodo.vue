@@ -9,17 +9,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Todos extends Vue {
   newTodoText = '';
 
-  @Prop()
-  private todos!: { id: number; text: string; finished: boolean }[];
+  get todos(): { id: number; text: string; finished: boolean }[] {
+    return this.$store.state.todos;
+  }
 
   addTodo(): void {
-    this.$emit('addTodo', this.newTodoText);
+    this.$store.commit('addTodo', this.newTodoText);
     this.newTodoText = '';
   }
 }
